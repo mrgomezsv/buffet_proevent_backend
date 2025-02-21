@@ -1,0 +1,9 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Dashboard - Buffet Proevent{% endblock %}
+
+{% block content %}
+<h1>Bienvenido al Dashboard</h1>
+<p>Aquí puedes gestionar tu aplicación.</p>
+<a href="{% url 'logout' %}">Cerrar sesión</a>  <!-- Enlace para cerrar sesión -->
+{% endblock %}
