@@ -1,5 +1,5 @@
 {% extends 'dashboard/base.html' %}
-{% load static %}  <!-- Cargar la etiqueta static -->
+{% load static %}  <!-- Cargar la biblioteca de etiquetas estáticas -->
 
 {% block title %}Inicio - Buffet Proevent{% endblock %}
 
@@ -214,6 +214,13 @@ a.botonGetStarted:hover {
     }
 }
 
+        .logo {
+    height: 4rem;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+}
+
 @media screen and (max-width: 400px) {
     .boxHeader {
         height: 700px;
@@ -231,6 +238,9 @@ a.botonGetStarted:hover {
 <!-- Contenedor Header -->
 <header id="linkHome">
     <div class="boxLogo">
+                <a href="#" title="Logo">
+            <img src="{% static 'dashboard/assets/icon_buffet_white.png' %}" alt="Laplace Logo" class="logo">
+        </a>
         <h1>Tu espacio en Buffet ProEvent<small>.</small></h1>
     </div>
 

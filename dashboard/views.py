@@ -5,8 +5,8 @@ from django.contrib import messages
 
 
 
-def home(request):
-    return render(request, 'dashboard/home.html')
+def welcome(request):
+    return render(request, 'dashboard/welcome.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -18,7 +18,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')  # Redirige a la página de inicio después del login
+            return redirect('welcome')  # Redirige a la página de inicio después del login
         else:
             messages.error(request, 'Email or password is incorrect.')
 
