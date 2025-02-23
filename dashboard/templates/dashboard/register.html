@@ -1,13 +1,410 @@
-<!-- register.html -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-</head>
-<body>
-    <h1>Registro</h1>
-    <p>Este es el formulario de registro.</p>
-</body>
-</html>
+{% extends 'dashboard/base.html' %}
+{% load static %}  <!-- Cargar la biblioteca de etiquetas estáticas -->
+
+{% block title %}Registro - Buffet Proevent{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+    --primary: #000000;
+    --primary-light: #22211F;
+    --primary-disabled: #363435;
+    --primary-lighter: #454344;
+    --secondary: #1D1D1D;
+    --text: #11181C;
+    --text-gray: #687076;
+    --text-placeholder: #8890A7;
+    --border: #DFE3E6;
+    --btn-bg: #EDEDED;
+    --input-bg: #F1F2F3;
+    --background: #F8F8FF;
+    --error: #e5484d;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+    padding: 1rem;
+    display: grid;
+    place-items: center;
+    background: var(--background);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::selection {
+    background: var(--primary-light);
+    color: white;
+}
+
+.socials-row {
+    display: flex;
+}
+
+.socials-row img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.socials-row>a {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    min-height: 2.75rem;
+    display: flex;
+    gap: 0.75rem;
+    color: var(--text);
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: var(--text);
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    transition: all .3s ease;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;
+}
+
+.socials-row>a svg {
+    color: var(--text)
+}
+
+.socials-row>a:hover {
+    background-color: var(--btn-bg);
+}
+
+.form-welcome-row {
+    margin-bottom: 1rem;
+}
+
+.form-welcome-row h1 {
+    color: var(--text);
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: normal;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-welcome-row h2 {
+    color: var(--text-gray);
+    font-size: 1.10rem;
+    font-weight: normal;
+}
+
+.divider {
+    display: flex;
+    flex-direction: row;
+    color: var(--secondary);
+    gap: 1rem;
+    align-items: center;
+}
+
+.divider-line {
+    width: 100%;
+    height: 1px;
+    background: var(--secondary);
+    opacity: .2;
+}
+
+.form-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
+    gap: 1rem;
+    max-height: 200rem;
+    height: 100%;
+    width: 100%;
+}
+
+.form-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.logo {
+    height: 4rem;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+    gap: 1.25rem;
+    max-width: 26rem;
+    width: 100%;
+}
+
+.my-form__button {
+    background: var(--primary);
+    border: 1px solid var(--primary-light);
+    color: white;
+    white-space: nowrap;
+    display: grid;
+    place-items: center;
+    margin-top: 1.5rem;
+    line-height: 2.75rem;
+    outline: none;
+    border: none;
+    font-size: 1.125rem;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .15);
+    transition: all .3s ease;
+}
+
+.my-form:invalid .my-form__button {
+    pointer-events: none;
+    background: var(--primary-disabled);
+    border: 1px solid var(--primary-light);
+}
+
+.my-form__actions {
+    display: flex;
+    flex-direction: column;
+    color: var(--secondary);
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.my-form__actions a {
+    color: var(--text);
+}
+
+.my-form__actions a:hover {
+    color: var(--text-gray);
+    text-decoration: underline;
+}
+
+.my-form__row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.text-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.text-field input {
+    color: var(--secondary);
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid var(--border);
+    min-height: 3rem;
+    letter-spacing: .03rem;
+    outline: none;
+    background: var(--input-bg);
+    transition: .25s;
+    border-radius: 0.5rem;
+    text-indent: 1.25rem;
+}
+
+.text-field label {
+    color: var(--text);
+}
+
+.text-field input:user-invalid {
+    background: var(--white);
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+.error-message {
+    display: none;
+}
+
+.text-field input:user-invalid~.error-message {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--error);
+}
+
+.text-field input:focus {
+    border: 1px solid var(--text);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;
+}
+
+/* aside */
+.info-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 2rem;
+    background: url('../assets/background.jpg') repeat center center;
+    background-size: cover;  /* Corregí background-position a background-size */
+    max-height: 90rem;
+}
+
+.info-side .blockquote-wrapper {
+    gap: 1rem;
+    position: relative;
+    padding: 1rem;
+    max-width: 25rem;
+    background: white;
+    border-radius: 1rem;
+}
+
+.info-side .blockquote-wrapper img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 1rem;
+}
+
+.info-side .blockquote-wrapper blockquote {
+    margin-bottom: 1rem;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.info-side .author {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.info-side .author img {
+    border-radius: 50%;
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.info-side .author-name {
+    font-weight: 600;
+    color: var(--text);
+}
+
+@media (max-width: 720px) {
+    .form-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .info-side {
+        display: none;
+    }
+}
+
+    @keyframes animacion2 {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-wrapper {
+    animation: animacion2 1s ease-out;
+    animation-delay: 0.5s; /* Retraso de 0.5 segundos */
+    animation-fill-mode: both; /* Mantiene el estado final de la animación */
+}
+
+</style>
+
+<div class="form-wrapper">
+    <main class="form-side">
+        <a href="#" title="Logo">
+            <img src="{% static 'dashboard/assets/icon_buffet_white.png' %}" alt="Laplace Logo" class="logo">
+        </a>
+        <form class="my-form" method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="form-welcome-row">
+                <h1>¡Regístrate! &#128079;</h1>
+                <h2>¡Crea una cuenta en Buffet ProEvent!</h2>
+            </div>
+            <div class="text-field">
+                <label for="first_name">Nombre</label>
+                <input type="text" id="first_name" name="first_name" autocomplete="off" placeholder="Tu nombre" required>
+                <div class="error-message">Este campo es obligatorio</div>
+            </div>
+            <div class="text-field">
+                <label for="last_name">Apellido</label>
+                <input type="text" id="last_name" name="last_name" autocomplete="off" placeholder="Tu apellido" required>
+                <div class="error-message">Este campo es obligatorio</div>
+            </div>
+            <div class="text-field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="off" placeholder="tu@ejemplo.com" required>
+                <div class="error-message">Email en formato incorrecto</div>
+            </div>
+            <div class="text-field">
+                <label for="password">Contraseña</label>
+                <input id="password" type="password" name="password" placeholder="Tu Contraseña"
+                       title="Mínimo 6 caracteres, al menos 1 letra, 1 número y 1 símbolo"
+                       pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{6,}$" required>
+                <div class="error-message">Mínimo 6 caracteres, al menos 1 letra, 1 número y 1 símbolo</div>
+            </div>
+            <div class="text-field">
+                <label for="phone_number">Teléfono</label>
+                <input type="text" id="phone_number" name="phone_number" autocomplete="off" placeholder="Tu número de teléfono" required>
+                <div class="error-message">Este campo es obligatorio</div>
+            </div>
+            <div class="text-field">
+                <label for="address">Dirección</label>
+                <input type="text" id="address" name="address" autocomplete="off" placeholder="Tu dirección" required>
+                <div class="error-message">Este campo es obligatorio</div>
+            </div>
+            <div class="text-field">
+                <label for="city">Ciudad</label>
+                <input type="text" id="city" name="city" autocomplete="off" placeholder="Tu ciudad" required>
+                <div class="error-message">Este campo es obligatorio</div>
+            </div>
+            <div class="text-field">
+                <label for="postal_code">Código Postal</label>
+                <input type="text" id="postal_code" name="postal_code" autocomplete="off" placeholder="Tu código postal" required>
+                <div class="error-message">Este campo es obligatorio</div>
+            </div>
+{#            <div class="text-field">#}
+{#                <label for="delivery_notes">Notas de Entrega</label>#}
+{#                <textarea id="delivery_notes" name="delivery_notes" autocomplete="off" placeholder="Notas especiales para la entrega"></textarea>#}
+{#            </div>#}
+            <button class="my-form__button" type="submit">
+                Registrarse
+            </button>
+            <div class="my-form__actions">
+                <div class="my-form__row">
+                    <span>Pero si ya tienes cuenta vamos a</span>
+                    <a href="{% url 'login' %}" title="Iniciar Sesión">
+                        Iniciar Sesión
+                    </a>
+                </div>
+            </div>
+        </form>
+    </main>
+    <aside class="info-side">
+        <div class="blockquote-wrapper">
+            <img src="{% static 'dashboard/assets/register.jpg' %}" alt="Returns" class="returns">
+            <blockquote>
+                Arte Culinario de Chinameca.
+            </blockquote>
+            <div class="author">
+                <img src="{% static 'dashboard/assets/mrgomez.jpg' %}" alt="Avatar" class="avatar">
+                <span class="author-name">@mrgomez.dev</span>
+            </div>
+        </div>
+    </aside>
+</div>
+{% endblock %}
