@@ -1,9 +1,259 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}  <!-- Cargar la etiqueta static -->
 
 {% block title %}Inicio - Buffet Proevent{% endblock %}
 
 {% block content %}
-<h1>Bienvenido a Buffet Proevent</h1>
-<p>Esta es la página de inicio.</p>
-<a href="{% url 'login' %}">Iniciar sesión</a>
+    <style>
+        *,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+p {
+    font-size: 14px;
+    color: #9c9c9c;
+}
+
+.boxLogo {
+    display: flex;
+    justify-content: center;
+}
+
+.boxLogo h1>small {
+    color: #20bf6b;
+}
+
+/* ESTILOS HEADER */
+header {
+    height: 700px;
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    padding-top: 55px;
+}
+
+.boxHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 635px;
+    color: #000;
+    overflow: hidden;
+}
+
+.boxHeader .textosHeader {
+    width: 42%;
+    position: relative;
+    left: 15%;
+    transform: translateY(0);
+    opacity: 1;
+    animation: animacion2 1s ease-out;
+}
+
+.boxHeader .textosHeader h1 {
+    font-size: 50px;
+    width: 55%;
+}
+
+.boxHeader .textosHeader p {
+    width: 65%;
+    color: #9c9c9c;
+    font-size: 14px;
+}
+
+a.botonGetStarted {
+    display: inline-block;
+    width: 135px;
+    text-align: center;
+    margin-top: 20px;
+    color: #fff;
+    padding: 8px 20px;
+    background-color: #20bf6b;
+    border-radius: 35px;
+    border: 2px solid #20bf6b;
+    box-shadow: 0px 5px 18px rgba(0, 0, 0, .2);
+    transition: all 0.3s ease 0s;
+}
+
+a.botonGetStarted:hover {
+    color: #20bf6b !important;
+    background-color: transparent;
+    border-radius: 6px;
+    transition: all 0.3s ease 0s;
+    box-shadow: 0px 15px 18px rgba(32, 191, 107, 0.4);
+    transform: translateY(-6px);
+}
+
+.boxHeader .imgHeader {
+    right: -19%;
+    position: relative;
+}
+
+.imgHeader img {
+    width: 80%;
+    transform: translateX(0);
+    opacity: 1;
+    animation: animacion1 1s ease-out;
+}
+
+@keyframes animacion1 {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes animacion2 {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+/* ESTILOS FOOTER */
+.footer {
+    background: white;
+    padding: 25px;
+}
+
+.boxTextFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxTextFooter p {
+    margin-bottom: 0;
+    color: #666666;
+}
+
+.boxTextFooter p a {
+    color: #666666;
+}
+
+.boxTextFooter p a:hover {
+    color: #20be6b;
+    transition: 0.4s;
+}
+
+.boxTextFooter span {
+    color: #20be6b;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 800px) {
+    .boxHeader {
+        flex-wrap: wrap;
+        height: 900px;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .boxHeader .textosHeader {
+        width: 90%;
+        margin-bottom: 100px;
+        text-align: left;
+        left: 0;
+        margin: 0 auto;
+    }
+
+    .boxHeader h1 {
+        font-size: 40px;
+    }
+
+    .boxHeader .textosHeader h1 {
+        width: 100%;
+    }
+
+    .boxHeader .textosHeader p {
+        width: 100%;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .boxHeader .imgHeader {
+        width: 100%;
+        top: -40px;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .imgHeader img {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .boxHeader {
+        height: 700px;
+    }
+
+    .boxHeader .textosHeader {
+        width: 90%;
+    }
+
+    .boxHeader h1 {
+        font-size: 25px;
+    }
+}
+    </style>
+<!-- Contenedor Header -->
+<header id="linkHome">
+    <div class="boxLogo">
+        <h1>Landerz<small>.</small></h1>
+    </div>
+
+    <div class="boxHeader">
+        <div class="textosHeader">
+            <h1><b>Grow Your Business Faster</b></h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur cupiditate voluptate repellendus voluptas esse culpa iusto.</p>
+
+            <a class="botonGetStarted" href="{% url 'login' %}" rel="nofollow noopener">Get Started</a>
+        </div>
+
+        <div class="imgHeader">
+            <img src="{% static 'dashboard/assets/landing_1.png' %}" alt="">
+        </div>
+    </div>
+</header>
+<!-- Fin Contenedor Header -->
+
+<!-- Contenedor Footer -->
+<footer class="footer">
+    <div class="boxTextFooter">
+        <p>Hecho con <span class="icon-heart"></span> <a href="https://mrgomezsv.github.io" target="_blank"> por Mario Roberto</a></p>
+    </div>
+</footer>
+<!-- Fin Contenedor Footer -->
 {% endblock %}
