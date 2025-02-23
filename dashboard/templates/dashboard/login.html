@@ -304,6 +304,24 @@ body {
         display: none;
     }
 }
+
+    @keyframes animacion2 {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-wrapper {
+    animation: animacion2 1s ease-out;
+    animation-delay: 0.5s; /* Retraso de 0.5 segundos */
+    animation-fill-mode: both; /* Mantiene el estado final de la animación */
+}
+
 </style>
 
 <div class="form-wrapper">
@@ -366,7 +384,7 @@ body {
                 Arte Culinario de Chinameca.
             </blockquote>
             <div class="author">
-                <img src="{% static 'dashboard/assets/avatar.png' %}" alt="Avatar" class="avatar">
+                <img src="{% static 'dashboard/assets/mrgomez.jpg' %}" alt="Avatar" class="avatar">
                 <span class="author-name">@mrgomez.dev</span>
             </div>
         </div>
