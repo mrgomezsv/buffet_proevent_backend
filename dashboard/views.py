@@ -23,3 +23,6 @@ def login_view(request):
             messages.error(request, 'Email or password is incorrect.')
 
     return render(request, 'dashboard/login.html')
+
+def register_view(request):
+    return render(request, 'dashboard/register.html')
