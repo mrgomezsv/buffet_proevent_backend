@@ -75,8 +75,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Buffet_Proevent_Backend.wsgi.application'
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dashboard/static')]
+# Configuración de archivos estáticos
+STATIC_URL = '/static/'  # URL base para los archivos estáticos
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dashboard/static')]  # Directorios donde Django busca archivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directorio donde se recopilarán los archivos estáticos para producción
 
 
 

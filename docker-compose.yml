@@ -5,7 +5,8 @@ services:
     build: .
     command: gunicorn Buffet_Proevent_Backend.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - .:/app
+      - .:/app  # Monta todo el proyecto en el contenedor
+      - ./dashboard/static:/app/dashboard/static  # Monta específicamente el directorio de arch
     ports:
       - "8002:8000"
     environment:
