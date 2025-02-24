@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: gunicorn Buffet_Proevent_Backend.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8002:8000"
+    environment:
+      - DEBUG=False
+      - SECRET_KEY='django-insecure-ppmt7@!)-6&#(a95ooei+epa2y1amprbty6w@d(k-y!-e&l9(c'
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      - DEBUG=True
+      - SECRET_KEY = 'django-insecure-ppmt7@!)-6&#(a95ooei+epa2y1amprbty6w@d(k-y!-e&l9(c'
+      - POSTGRES_DB=buffet_proevent
+      - POSTGRES_USER=mrgomez
+      - POSTGRES_PASSWORD=Karin2100
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:

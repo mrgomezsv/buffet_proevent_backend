@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ppmt7@!)-6&#(a95ooei+epa2y1amprbty6w@d(k-y!-e&l9(c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = os.getenv('DEBUG', 'False') == 'True'
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web']
 
 
 # Application definition
@@ -82,14 +83,25 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dashboard/static')]
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'buffet_proevent',          # Nombre de la base de datos
+#         'USER': 'mrgomez',                 # Usuario de PostgreSQL
+#         'PASSWORD': 'Karin2100',       # Contraseña del usuario
+#         'HOST': '82.165.210.146',          # IP de la base de datos
+#         'PORT': '5432',                    # Puerto de PostgreSQL
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'buffet_proevent',          # Nombre de la base de datos
-        'USER': 'mrgomez',                 # Usuario de PostgreSQL
-        'PASSWORD': 'Karin2100',       # Contraseña del usuario
-        'HOST': '82.165.210.146',          # IP de la base de datos
-        'PORT': '5432',                    # Puerto de PostgreSQL
+        'NAME': os.getenv('POSTGRES_DB', 'buffet_proevent'),
+        'USER': os.getenv('POSTGRES_USER', 'mrgomez'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'Karin2100'),
+        'HOST': os.getenv('POSTGRES_HOST', 'db'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
 }
 
